@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 function connect(uri){
   mongoose.connect(uri, {
     useNewUrlParser:true,
+    useCreateIndex: true,
     useUnifiedTopology:true
   })
     .then(()=>{

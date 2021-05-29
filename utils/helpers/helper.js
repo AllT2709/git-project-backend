@@ -1,4 +1,5 @@
 const Note = require('../../schema/notes');
+const User = require('../../schema/user');
 const supertest = require('supertest');
 const {app} = require('../../index');
 
@@ -34,9 +35,15 @@ const nonExistingId = async () => {
   return note._id;
 };
 
+const getUsers = async () => {
+  let users = await User.find({});
+  return users.map(u => u.toJSON());
+};
+
 module.exports = {
   initialNotes,
   api,
   getAllFromNotes,
-  nonExistingId
+  nonExistingId,
+  getUsers,
 };

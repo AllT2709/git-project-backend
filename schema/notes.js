@@ -10,6 +10,10 @@ const noteSchema = new Schema({
     required: true,
   },
   important: Boolean,
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  }
 });
 
 noteSchema.set('toJSON', {

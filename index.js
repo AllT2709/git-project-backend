@@ -1,8 +1,9 @@
 const express =  require('express');
 const config  = require('./config/index');
 const routertxt = require('./routes/text.routes');
+const routerUser = require('./routes/user.routes');
 const connect = require('./database/index'); 
-const { handlerErrors} = require('./utils/middlewares/errors');
+const {handlerErrors} = require('./utils/middlewares/errors');
 const notFound =  require('./utils/middlewares/notFound');
 
 connect(config.mongoURI);
@@ -14,6 +15,7 @@ app.use(express.json());
 app.get('/',(req,res)=>{
   res.send('Hola mundo');
 });
+app.use('/api', routerUser);
 app.use('/api', routertxt);
 
 app.use(notFound);

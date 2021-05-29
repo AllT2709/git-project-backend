@@ -1,5 +1,7 @@
 const express = require('express');
 const route = express.Router();
+const User = require('../schema/user');
+const verifyToken = require('../auth/authToken');
 
 require('express-async-errors');
 
@@ -22,8 +24,12 @@ route.get('/notes/:id', async (req, res) => {
   }
 }); 
 
-route.post('/notes', async (req,res)=>{
+route.post('/notes',verifyToken, async (req,res)=>{
   const body = req.body;
+
+  // let decodedToken = await verifyToken(req,res);
+  let user = await User.findById(req.userId);
+
   if ( !body || !body.content) {
     return res.status(400).json({
       error: 'content missing'
@@ -33,16 +39,21 @@ route.post('/notes', async (req,res)=>{
     content: body.content,
     date: new Date(),
     important: typeof body.important !== 'undefined' ? body.important : false,
+    user: user._id
   };
 
   const note = await controller.addNote(newNote);
+
+  user.notes = user.notes.concat(note._id);
+  await user.save();
+
   res.status(201).json({
     message: 'save success',
     note: note,
   });
 });
 
-route.put('/notes/:id', async (req,res) => {
+route.put('/notes/:id',verifyToken, async (req,res) => {
   let {id} = req.params;
   let body = req.body;
 
@@ -68,7 +79,7 @@ route.put('/notes/:id', async (req,res) => {
   
 });
 
-route.delete('/notes/:id', async (req, res) => {
+route.delete('/notes/:id',verifyToken, async (req, res) => {
   let id = req.params.id;
 
   await controller.deleteNote(id);

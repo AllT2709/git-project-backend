@@ -1,7 +1,7 @@
 const notesModel = require('../schema/notes');
 
 const getNotes =  async () =>{
-  const notes = await notesModel.find({});
+  const notes = await notesModel.find({}).populate('user',{ username:1 , name: 1});
   return notes;
 };
 
