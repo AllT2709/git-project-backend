@@ -1,4 +1,5 @@
 const express =  require('express');
+const cors = require('cors');
 const config  = require('./config/index');
 const routertxt = require('./routes/text.routes');
 const routerUser = require('./routes/user.routes');
@@ -11,6 +12,7 @@ connect(config.mongoURI);
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 
 app.get('/',(req,res)=>{
   res.send('Hola mundo');
