@@ -54,6 +54,6 @@ Si tu sistema operativo es Linux o Mac, puedes saltarte este paso.
 
 ### Imagen
 
-![Imagen](img/captura.png)
+![captura](https://user-images.githubusercontent.com/53627060/124371197-f0286c80-dc44-11eb-8df7-f6e24466de48.png)
 
 _Guia de este proyecto_ [aquí](http://fullstackopen.com/es/ "aquí")
