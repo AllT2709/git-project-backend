@@ -24,7 +24,7 @@ const getOneUser = async (res,body) => {
     id: user._id
   };
 
-  let token = jwt.sign(userForToken, config.secret,);
+  let token = jwt.sign(userForToken, config.secret);
   return {
     token,
     user
